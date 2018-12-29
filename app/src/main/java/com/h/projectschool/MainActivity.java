@@ -109,6 +109,7 @@ public class MainActivity extends AppCompatActivity
         arrayList.add(findViewById(R.id.floatingActionButton2));
         arrayList.add(findViewById(R.id.floatingActionButton3));
         arrayList.add(findViewById(R.id.floatingActionButton4));
+
         if (switchValue) {
             Animation animation = AnimationUtils.loadAnimation(this, R.anim.fade_in);
             for (View btn : arrayList) {
@@ -148,7 +149,7 @@ public class MainActivity extends AppCompatActivity
         // Inflate the custom layout/view
         View customView = inflater.inflate(R.layout.pop_up_window,null);
         //Button btn_closepopup=(Button)layout.findViewById(R.id.btn_closePoppup);
-        PopupWindow pwindo=new PopupWindow( customView,1000,1400,true);
+        PopupWindow pwindo=new PopupWindow( customView,850,400,true);
         pwindo.showAtLocation(view, Gravity.CENTER, 0, 40);
 
         //btn_closepopup.setOnClickListener(new View.OnClickListener() {
