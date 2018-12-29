@@ -51,10 +51,11 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/fab"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="28dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
         android:animateLayoutChanges="true"
         android:clickable="true"
+        android:onClick="texteditor"
         android:visibility="invisible"
         app:srcCompat="@drawable/ic_text_fields" />
 
@@ -64,11 +65,24 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/fab"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="100dp"
-        android:layout_marginBottom="0dp"
+        android:layout_marginEnd="68dp"
+        android:layout_marginBottom="1dp"
         android:animateLayoutChanges="true"
         android:clickable="true"
         android:visibility="invisible"
+        android:onClick="createfolder"
         app:srcCompat="@drawable/ic_create_new_folder" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingActionButton4"
+        android:onClick="lessonplan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="88dp"
+        android:clickable="true"
+        android:visibility="invisible"
+        app:srcCompat="@drawable/ic_event_note" />
 
 </RelativeLayout>

@@ -1,9 +1,13 @@
 package com.h.projectschool;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,11 +17,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.PopupWindow;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, FoldersFragment.OnFragmentInteractionListener, TextFragment.OnFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener, TextEditorFragment.OnFragmentInteractionListener, FoldersFragment.OnFragmentInteractionListener, TextFragment.OnFragmentInteractionListener,LessonPlanFragment.OnFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +33,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        //some changes
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -101,16 +108,56 @@ public class MainActivity extends AppCompatActivity
         ArrayList<View> arrayList = new ArrayList();
         arrayList.add(findViewById(R.id.floatingActionButton2));
         arrayList.add(findViewById(R.id.floatingActionButton3));
-
+        arrayList.add(findViewById(R.id.floatingActionButton4));
         if (switchValue) {
-            for (View btn : arrayList)
+            Animation animation = AnimationUtils.loadAnimation(this, R.anim.fade_in);
+            for (View btn : arrayList) {
+                btn.startAnimation(animation);
                 btn.setVisibility(View.VISIBLE);
+            }
             switchValue = false;
         } else {
-            for (View btn : arrayList)
+            Animation animation = AnimationUtils.loadAnimation(this, R.anim.fade_out);
+            for (View btn : arrayList) {
+                btn.startAnimation(animation);
                 btn.setVisibility(View.INVISIBLE);
+            }
             switchValue = true;
         }
 
+    }
+
+    public void texteditor(View view) {
+        android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.flMainframe, new TextEditorFragment());
+        ft.commit();
+    }
+
+    public void lessonplan(View view) {
+        android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.flMainframe, new LessonPlanFragment());
+        ft.commit();
+    }
+
+    public void createfolder(View view) {
+
+        // Initialize a new instance of LayoutInflater service
+        Context context = getApplicationContext();
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(LAYOUT_INFLATER_SERVICE);
+
+        // Inflate the custom layout/view
+        View customView = inflater.inflate(R.layout.pop_up_window,null);
+        //Button btn_closepopup=(Button)layout.findViewById(R.id.btn_closePoppup);
+        PopupWindow pwindo=new PopupWindow( customView,1000,1400,true);
+        pwindo.showAtLocation(view, Gravity.CENTER, 0, 40);
+
+        //btn_closepopup.setOnClickListener(new View.OnClickListener() {
+
+          //  @Override
+            //public void onClick(View arg0) {
+                // TODO Auto-generated method stub
+              //  pwindo.dismiss();
+          //  }
+        //});
     }
 }
