@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 
 /**
@@ -66,7 +67,10 @@ public class TextFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         Log.d("test","create fragment");
-        return inflater.inflate(R.layout.fragment_text, container, false);
+        View v =inflater.inflate(R.layout.fragment_text, container, false);
+        ListView listView =v.findViewById(R.id.listview);
+        listView.setAdapter(new ListViewAdapter(getActivity()));
+        return v;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
