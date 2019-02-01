@@ -1,11 +1,8 @@
 package com.h.projectschool;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,13 +16,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.PopupWindow;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
+
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, TextEditorFragment.OnFragmentInteractionListener, FoldersFragment.OnFragmentInteractionListener, TextFragment.OnFragmentInteractionListener,LessonPlanFragment.OnFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener, TextEditorFragment.OnFragmentInteractionListener, FoldersFragment.OnFragmentInteractionListener, DocumentFragment.OnFragmentInteractionListener,LessonPlanFragment.OnFragmentInteractionListener,CalculatorFragment.OnFragmentInteractionListener {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +32,8 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -88,7 +89,7 @@ public class MainActivity extends AppCompatActivity
             ft.replace(R.id.flMainframe, new FoldersFragment());
             ft.commit();
         } else if (id == R.id.nav_text_fields) {
-            ft.replace(R.id.flMainframe, new TextFragment());
+            ft.replace(R.id.flMainframe, new DocumentFragment());
             ft.commit();
         }
 
@@ -109,6 +110,9 @@ public class MainActivity extends AppCompatActivity
         arrayList.add(findViewById(R.id.floatingActionButton2));
         arrayList.add(findViewById(R.id.floatingActionButton3));
         arrayList.add(findViewById(R.id.floatingActionButton4));
+        // floatingactionbutton 5 ist nur zuständig für texteditor (arbeitet hier nicht)
+        arrayList.add(findViewById(R.id.floatingActionButton6));
+
 
         if (switchValue) {
             Animation animation = AnimationUtils.loadAnimation(this, R.anim.fade_in);
@@ -161,4 +165,11 @@ public class MainActivity extends AppCompatActivity
           //  }
         //});
     }
+
+    public void calculator(View view) {
+        android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.flMainframe, new CalculatorFragment());
+        ft.commit();
+    }
 }
+

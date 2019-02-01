@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CalculatorFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        >
+        <TextView
+            android:id="@+id/nachricht"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Calculator"
+            />
+
+        <EditText
+            android:id="@+id/zahl1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="number 1"
+
+            android:singleLine="true" />
+
+        <EditText
+            android:id="@+id/zahl2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="number 2"
+
+            android:singleLine="true" />
+
+        <TextView
+            android:id="@+id/ergebnis"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="15px"
+            android:paddingBottom="15px"
+            />
+
+        <Button
+            android:id="@+id/addition"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+" />
+
+
+        <Button
+            android:id="@+id/subraktion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-" />
+
+        <Button
+            android:id="@+id/multiplikation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="*" />
+
+        <Button
+            android:id="@+id/division"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="/" />
+
+
+    </LinearLayout>
+
+</FrameLayout>

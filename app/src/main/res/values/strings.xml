@@ -8,6 +8,24 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_scrolling_folders">ScrollingActivity_folders</string>
     <string name="large_text">
+
+        //Calculator
+    <string name="anweisung">Bitte geben Sie 2 Zahlen ein. Wählen Sie dann Ihre Rechenart</string>
+
+
+        <!--    Strings für Textfelder-->
+        <string name="zahl1_text">Zahl1 eingeben</string>
+    <string name="zahl2_text">Zahl2 eingeben</string>
+
+
+        <!--    Strings für Buttons-->
+        <string name="addition_text">Addition</string>
+    <string name="subtraktion_text">Subtraktion</string>
+    <string name="multiplikation_text">Multiplikation</string>
+    <string name="division_text">Division</string>
+
+    <string name="ergebnis">Ergebnis: %1$s.</string>
+
         "Material is the metaphor.\n\n"
 
         "A material metaphor is the unifying theory of a rationalized space and a system of motion."

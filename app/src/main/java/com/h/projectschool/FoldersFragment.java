@@ -9,6 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.IOException;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -104,8 +107,33 @@ public class FoldersFragment extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
+
+
+
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+    File myFile = new File(getFilesDir(), "/Images/abc/");
+
+    private File getFilesDir() {
+        return null;
+    }
+     /*        myFile.mkdirs();
+             try {
+        for (int i = 0; i < 3; i++) {
+            String ab = i + ".png";
+            File file = new File(myFile.getAbsolutePath()//folder path
+                    +File.separator
+                    +ab); //file name
+            try {
+                file.createNewFile();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        }
+    } catch (IOException e) {
+
+        e.printStackTrace();
+    }*/
 }
