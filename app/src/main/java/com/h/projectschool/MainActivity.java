@@ -1,8 +1,10 @@
 package com.h.projectschool;
 
+import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.IntRange;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.EditText;
 import android.widget.PopupWindow;
 import android.widget.Toast;
 
@@ -151,10 +154,26 @@ public class MainActivity extends AppCompatActivity
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(LAYOUT_INFLATER_SERVICE);
 
         // Inflate the custom layout/view
-        View customView = inflater.inflate(R.layout.pop_up_window,null);
+        final View customView = inflater.inflate(R.layout.pop_up_window,null);
         //Button btn_closepopup=(Button)layout.findViewById(R.id.btn_closePoppup);
-        PopupWindow pwindo=new PopupWindow( customView,850,400,true);
+        final PopupWindow pwindo=new PopupWindow( customView,850,400,true);
         pwindo.showAtLocation(view, Gravity.CENTER, 0, 40);
+        final Activity activity = this;
+        customView.findViewById(R.id.save_folder).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EditText folder= (EditText) customView.findViewById(R.id.editText2);
+                String folderName = String.valueOf(folder.getText());
+                InterDatabase.saveData(activity,"folders",folderName);
+                pwindo.dismiss();
+            }
+        });
+        customView.findViewById(R.id.cancle_folder).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                pwindo.dismiss();
+            }
+        });
 
         //btn_closepopup.setOnClickListener(new View.OnClickListener() {
 

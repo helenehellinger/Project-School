@@ -5,10 +5,14 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.PopupWindow;
+import android.widget.Toast;
 
 
 /**
@@ -20,6 +24,8 @@ import android.widget.ListView;
  * create an instance of this fragment.
  */
 public class DocumentFragment extends Fragment {
+
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -53,6 +59,7 @@ public class DocumentFragment extends Fragment {
         return fragment;
     }
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,13 +70,44 @@ public class DocumentFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        Log.d("test","create fragment");
-        View v =inflater.inflate(R.layout.fragment_text, container, false);
-        ListView listView =v.findViewById(R.id.listview);
+        Log.d("test", "create fragment");
+        final View v = inflater.inflate(R.layout.document_text, container, false);
+        final ListView listView = v.findViewById(R.id.listview);
         listView.setAdapter(new ListViewAdapter(getActivity()));
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+                                           final int pos, final long id) {
+
+                // Inflate the custom layout/view
+                View customView = inflater.inflate(R.layout.delete_popup, null);
+                final PopupWindow pwindo = new PopupWindow(customView, 850, 400, true);
+                pwindo.showAtLocation(v, Gravity.CENTER, 0, 40);
+                //Button btn_closepopup=(Button)layout.findViewById(R.id.btn_closePoppup);
+                customView.findViewById(R.id.delete_button).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        InterDatabase.remove(getActivity(),"documents",pos);
+                        listView.setAdapter(new ListViewAdapter(getActivity()));
+                        if (pwindo.isShowing()) {
+                            pwindo.dismiss();
+                        }
+                    }
+                });
+                customView.findViewById(R.id.cancle_delete_button).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (pwindo.isShowing()) {
+                            pwindo.dismiss();
+                        }
+                    }
+                });
+                return true;
+            }
+        });
         return v;
     }
 

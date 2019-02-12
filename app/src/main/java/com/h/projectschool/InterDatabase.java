@@ -21,6 +21,12 @@ public class InterDatabase {
         Log.d(TAG, "getData " + list);
         return list;
     }
+    public static void remove(Activity activity, String name, int position) {
+        TinyDB tinydb = new TinyDB(activity);
+        ArrayList<String> list = tinydb.getListString(name);
+        list.remove(position);
+        tinydb.putListString(name, list);
+    }
 
     public static ArrayList<String> getDataArray(Activity activity, String name) {
         TinyDB tinydb = new TinyDB(activity);

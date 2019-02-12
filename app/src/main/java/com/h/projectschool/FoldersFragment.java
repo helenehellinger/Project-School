@@ -4,9 +4,13 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.Toast;
 
 import java.io.File;
@@ -65,12 +69,46 @@ public class FoldersFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         Toast.makeText(getActivity(), "folders create ", Toast.LENGTH_SHORT).show();
 
-        return inflater.inflate(R.layout.fragment_folders, container, false);
+        final View v = inflater.inflate(R.layout.fragment_folders, container, false);
+        final ListView listView = v.findViewById(R.id.listview_folders);
+        listView.setAdapter(new ListViewAdapterFolders(getActivity()));
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+                                           final int pos, final long id) {
+
+                // Inflate the custom layout/view
+                View customView = inflater.inflate(R.layout.delete_popup, null);
+                final PopupWindow pwindo = new PopupWindow(customView, 850, 400, true);
+                pwindo.showAtLocation(v, Gravity.CENTER, 0, 40);
+                //Button btn_closepopup=(Button)layout.findViewById(R.id.btn_closePoppup);
+                customView.findViewById(R.id.delete_button).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        InterDatabase.remove(getActivity(),"folders",pos);
+                        listView.setAdapter(new ListViewAdapterFolders(getActivity()));
+                        if (pwindo.isShowing()) {
+                            pwindo.dismiss();
+                        }
+                    }
+                });
+                customView.findViewById(R.id.cancle_delete_button).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (pwindo.isShowing()) {
+                            pwindo.dismiss();
+                        }
+                    }
+                });
+                return true;
+            }
+        });
+        return v;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -109,11 +147,11 @@ public class FoldersFragment extends Fragment {
      */
 
 
-
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
     File myFile = new File(getFilesDir(), "/Images/abc/");
 
     private File getFilesDir() {
