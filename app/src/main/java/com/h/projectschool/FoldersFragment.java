@@ -1,6 +1,7 @@
 package com.h.projectschool;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,6 +16,8 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
+
+import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
 
 /**
@@ -77,6 +80,14 @@ public class FoldersFragment extends Fragment {
         final View v = inflater.inflate(R.layout.fragment_folders, container, false);
         final ListView listView = v.findViewById(R.id.listview_folders);
         listView.setAdapter(new ListViewAdapterFolders(getActivity()));
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(getActivity(), FolderActivity.class);
+                intent.putExtra("folderName", InterDatabase.getDataArray(getActivity(),"folders").get(i));
+                startActivity(intent);
+            }
+        });
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
